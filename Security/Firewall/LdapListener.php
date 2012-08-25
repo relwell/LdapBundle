@@ -14,7 +14,7 @@ use Acme\DemoBundle\Security\Authentication\Token\WsseUserToken;
 // @todo evaluate AbstractAuthenticatedListener as a parent class
 // http://api.symfony.com/2.0/Symfony/Component/Security/Http/Firewall/AbstractAuthenticationListener.html
 
-class WsseListener implements ListenerInterface
+class LdapListener implements ListenerInterface
 {
     protected $securityContext;
     protected $authenticationManager;
