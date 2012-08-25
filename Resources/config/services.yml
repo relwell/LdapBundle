@@ -12,11 +12,17 @@ parameters:
       security:
           role_prefix:   ROLE_LDAP_
           default_roles: [ROLE_ADMIN, ROLE_LDAP]
+          
+  zend_ldap_options:
+    host: ldap.example.com
+    bindRequiresDn: true
+    
 
 services:
 
   ldap.class:
     class: Zend\Ldap\Ldap
+    arguments: [%zend_ldap_options%]
 
   ldap.security.authentication.provider:
     class:  OpenSky\Bundle\LdapBundle\Security\Authentication\Provider\LdapProvider

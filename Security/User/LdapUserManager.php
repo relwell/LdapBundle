@@ -52,18 +52,8 @@ class LdapUserManager implements LdapUserManagerInterface
                 throw new \Exception("Config missing key {$configKey}.");
             }
             
-            $this->{$configKey} = $ldapConfigs[$configKey];
+            $this->{$configKeyCamelCase} = $ldapConfigs[$configKey];
         }
-        
-        /**
-        $this->userBaseDn         = $userBaseDn;
-        $this->userFilter         = $userFilter;
-        $this->usernameAttribute  = $usernameAttribute;
-        $this->roleBaseDn         = $roleBaseDn;
-        $this->roleFilter         = $roleFilter;
-        $this->roleNameAttribute  = $roleNameAttribute;
-        $this->roleUserAttribute  = $roleUserAttribute;
-        **/
     }
 
     /**
