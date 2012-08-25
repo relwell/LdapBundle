@@ -41,6 +41,8 @@ class LdapUserProvider implements UserProviderInterface
             throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username));
         }
 
+	//@todo add check for password here, and then bind directly
+
         return new LdapUser($username, $this->getRolesForUsername($username));
     }
 
@@ -52,6 +54,8 @@ class LdapUserProvider implements UserProviderInterface
         if (!$account instanceof LdapUser) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($account)));
         }
+
+	//@todo unbind here, for security's sake
 
         return $this->loadUserByUsername($account->getUsername());
     }
