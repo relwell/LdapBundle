@@ -1,4 +1,23 @@
+parameters:
+  opensky_ldap:
+      client:
+          host: ldap.example.com
+      user_base_dn:        ou=Users,dc=example,dc=com
+      user_filter:         (objectClass=employee)
+      username_attribute:  uid
+      role_base_dn:        ou=Groups,dc=example,dc=com
+      role_filter:         (objectClass=role)
+      role_name_attribute: cn
+      role_user_attribute: memberuid
+      security:
+          role_prefix:   ROLE_LDAP_
+          default_roles: [ROLE_ADMIN, ROLE_LDAP]
+
 services:
+
+  ldap.class:
+    class: Zend\Ldap\Ldap
+
   ldap.security.authentication.provider:
     class:  OpenSky\Bundle\LdapBundle\Security\Authentication\Provider\LdapProvider
     arguments: ['', %kernel.cache_dir%/security/nonces]
@@ -6,3 +25,11 @@ services:
   ldap.security.authentication.listener:
     class:  OpenSky\Bundle\LdapBundle\Security\Firewall\LdapListener
     arguments: [@security.context, @security.authentication.manager]
+
+  ldap.security.user.provider:
+    class:  OpenSky\Bundle\LdapBundle\Security\User\LdapUserProvider
+    arguments: [@ldap.security.user.manager]
+    
+  ldap.security.user.manager:
+    class:  OpenSky\Bundle\LdapBundle\Security\User\LdapUserManager
+    arguments: [@ldap.class, %opensky_ldap%]

@@ -19,6 +19,14 @@ class LdapUserManager implements LdapUserManagerInterface
     private $roleFilter;
     private $roleNameAttribute;
     private $roleUserAttribute;
+    
+    private $attributesSetByConfig = array('userBaseDn', 
+                                           'userFilter', 
+                                           'usernameAttribute', 
+                                           'roleBaseDn', 
+                                           'roleFilter', 
+                                           'roleNameAttribute', 
+                                           'roleUserAttribute');
 
     /**
      * Constructor.
@@ -32,9 +40,22 @@ class LdapUserManager implements LdapUserManagerInterface
      * @param string $roleNameAttribute  Role entry attribute from which to derive name
      * @param string $roleUserAttribute  Role entry attribute from which to derive user memberships
      */
-    public function __construct(Ldap $ldap, $userBaseDn, $userFilter, $usernameAttribute, $roleBaseDn, $roleFilter, $roleNameAttribute, $roleUserAttribute)
+    public function __construct(Ldap $ldap, $ldapConfigs)
     {
         $this->ldap               = $ldap;
+
+        foreach ($this->attributesSetByConfig as $configKeyCamelCase)
+        {
+            $configKey = strtolower(preg_replace('/([A-Z])/', '_\1', $configKeyCamelCase));
+            
+            if (!isset($ldapConfigs[$configKey])) {
+                throw new \Exception("Config missing key {$configKey}.");
+            }
+            
+            $this->{$configKey} = $ldapConfigs[$configKey];
+        }
+        
+        /**
         $this->userBaseDn         = $userBaseDn;
         $this->userFilter         = $userFilter;
         $this->usernameAttribute  = $usernameAttribute;
@@ -42,6 +63,7 @@ class LdapUserManager implements LdapUserManagerInterface
         $this->roleFilter         = $roleFilter;
         $this->roleNameAttribute  = $roleNameAttribute;
         $this->roleUserAttribute  = $roleUserAttribute;
+        **/
     }
 
     /**
