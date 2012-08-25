@@ -26,7 +26,7 @@ class LdapUserProvider implements UserProviderInterface
      * @param array                    $defaultRoles    Default roles given to all users
      */
     public function __construct(LdapUserManagerInterface $ldapUserManager, $rolePrefix = 'ROLE_', array $defaultRoles = array())
-    {
+    {echo 'hi'; die;
         $this->ldapUserManager    = $ldapUserManager;
         $this->rolePrefix         = $rolePrefix;
         $this->defaultRoles       = $defaultRoles;

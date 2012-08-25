@@ -1,0 +1,8 @@
+services:
+  ldap.security.authentication.provider:
+    class:  OpenSky\Bundle\LdapBundle\Security\Authentication\Provider\LdapProvider
+    arguments: ['', %kernel.cache_dir%/security/nonces]
+
+  ldap.security.authentication.listener:
+    class:  OpenSky\Bundle\LdapBundle\Security\Firewall\LdapListener
+    arguments: [@security.context, @security.authentication.manager]
