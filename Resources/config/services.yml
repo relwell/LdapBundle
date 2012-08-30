@@ -2,8 +2,8 @@ parameters:
   opensky_ldap:
       client:
           host: ldap.example.com
-      user_base_dn:        ou=Users,dc=example,dc=com
-      user_filter:         (objectClass=employee)
+      user_base_dn:        ou=people,dc=example,dc=com
+      user_filter:         objectClass=inetOrgPerson
       username_attribute:  uid
       role_base_dn:        ou=Groups,dc=example,dc=com
       role_filter:         (objectClass=role)
