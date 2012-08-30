@@ -7,6 +7,7 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 
 /**
  * LdapExtension.
@@ -36,6 +37,11 @@ class OpenSkyLdapExtension extends Extension
             $container->setParameter('opensky_ldap.user_provider.'.$key, $config['security'][$key]);
         }
     }
+    
+    public function addSecurityListenerFactory(SecurityFactoryInterface $factory)
+    {
+        $this->factories[$factory->getPosition()][] = $factory;
+    }
 
     /**
      * @see Symfony\Component\DependencyInjection\Extension\ExtensionInterface::getAlias()
@@ -45,4 +51,6 @@ class OpenSkyLdapExtension extends Extension
     {
         return 'opensky_ldap';
     }
+    
+    
 }

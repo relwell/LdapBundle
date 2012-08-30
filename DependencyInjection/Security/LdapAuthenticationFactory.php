@@ -16,7 +16,7 @@ use Symfony\Component\Config\Definition\Builder\NodeDefinition;
  *
  * @author Jeremy Mikola <jmikola@gmail.com>
  */
-class HttpBasicPreAuthenticatedFactory implements SecurityFactoryInterface
+class LdapAuthenticationFactory implements SecurityFactoryInterface
 {
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
